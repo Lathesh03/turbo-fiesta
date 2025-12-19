@@ -17,8 +17,8 @@ The infrastructure is hosted on an AWS EC2 (Ubuntu) instance with custom securit
 
 ## 🏗️ Architecture
 The application consists of two isolated containers running on a custom Docker Bridge Network:
-1.  Frontend: A Python Flask web application that serves the UI and processes user input.
-2.  Backend: A MySQL database that stores user messages.
+1.  **Frontend:** A Python Flask web application that serves the UI and processes user input.
+2.  **Backend:** A MySQL database that stores user messages.
 
 ```mermaid
 graph TD
@@ -29,7 +29,6 @@ graph TD
             App[Flask App Container] <-->|Port 3306| DB[(MySQL Database)]
         end
     end
-
 
 Technology Stack
 Cloud Provider,AWS (EC2),Infrastructure as a Service (IaaS)

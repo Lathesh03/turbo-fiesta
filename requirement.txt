@@ -2,3 +2,33 @@ Flask==2.0.1
 Flask-MySQLdb==0.2.0
 requests==2.26.0
 Werkzeug==2.2.2
+usefull Commands
+hase 1: The Foundation (Docker & Java)
+Run this block to update the system, install Docker (for your app), and Java (for Jenkins
+# 1. Update and Install Docker & Java
+sudo apt update
+sudo apt install docker.io fontconfig openjdk-17-jre -y
+
+# 2. Start Docker and give your user permissions
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker ubuntu
+
+# 1. Add Jenkins Key
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+# 2. Add Jenkins Repo
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/" | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+# 3. Install Jenkins
+sudo apt-get update
+sudo apt-get install jenkins -y
+
+Phase 3: The Secret Handshake
+We need to give Jenkins permission to talk to Docker. If we skip this, Jenkins will try to build your app and get a "Permission Denied" error.
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
+

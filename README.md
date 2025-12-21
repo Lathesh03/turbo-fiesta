@@ -1,31 +1,28 @@
-# ☁️ Cloud-Native Two-Tier Application on AWS
+# ☁️ Automated CI/CD Pipeline for 2-Tier Flask App
 
-![AWS](https://img.shields.io/badge/AWS-EC2-orange) ![Docker](https://img.shields.io/badge/Docker-Compose-blue) ![Python](https://img.shields.io/badge/Python-Flask-yellow) ![MySQL](https://img.shields.io/badge/Database-MySQL-lightgrey)
+![AWS](https://img.shields.io/badge/AWS-EC2-orange) ![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-red) ![Docker](https://img.shields.io/badge/Docker-Compose-blue) ![Python](https://img.shields.io/badge/Python-Flask-yellow)
 
-Author: Lathesh Neikar Krishnappa Harish  
-Role: DevOps Engineer / Cloud Student
+**Author:** Lathesh Neikar Krishnappa Harish  
+**Role:** DevOps Engineer / Cloud Student
 
 ---
 
 ## 📖 Project Overview
-This project demonstrates the deployment of a 2-Tier Web Application (Frontend + Database) on the AWS Cloud. 
-Unlike traditional deployments, this application is fully containerized using Docker and orchestrated with Docker Compose, ensuring consistency between development and production environments.
-
-The infrastructure is hosted on an AWS EC2 (Ubuntu) instance with custom security group configurations to allow public access.
+This project demonstrates a fully automated **CI/CD Pipeline** for a containerized 2-Tier Web Application. 
+Every change pushed to GitHub automatically triggers **Jenkins** to build new Docker images and deploy them to the **AWS EC2** production server, ensuring Zero-Touch deployment.
 
 ---
 
-## 🏗️ Architecture
-The application consists of two isolated containers running on a custom Docker Bridge Network:
-1.  Frontend: A Python Flask web application that serves the UI and processes user input.
-2.  Backend: A MySQL database that stores user messages.
+## 🏗️ Architecture & Workflow
+The pipeline automates the lifecycle from Code Commit to Production Deployment.
 
 ```mermaid
-graph TD
-    User((User)) -->|Internet| EC2[AWS EC2 Instance]
-    subgraph EC2
-        Docker[Docker Compose Group]
-        subgraph Docker
-            App[Flask App Container] <-->|Port 3306| DB[(MySQL Database)]
-        end
+graph LR
+    Dev[Developer] -->|Push Code| Git[GitHub Repo]
+    Git -->|Trigger| Jenkins[Jenkins Server]
+    subgraph AWS_EC2
+        Jenkins -->|1. Checkout| Code[Source Code]
+        Jenkins -->|2. Build| Image[Docker Image]
+        Jenkins -->|3. Deploy| App[Flask + MySQL Containers]
     end
+    App -->|Serve| User((User))

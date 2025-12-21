@@ -58,3 +58,6 @@ volumes:
 
 networks:
   two-tier-nt:
+
+  #  the following is not necessary for this setup, but it's included for completeness
+  # external: true

@@ -15,3 +15,4 @@ COPY . .
 EXPOSE 5000
 
 CMD ["python", "app.py"]
+#line  the is a comment and should be removed or commented out in the final Dockerfile.
